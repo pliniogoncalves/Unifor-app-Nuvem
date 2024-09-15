@@ -4,14 +4,9 @@ const express = require('express');
 const path = require("path");
 const mongoose = require('mongoose');
 const session = require('express-session');
-const RedisStore = require('connect-redis')(session);
-const Redis = require('ioredis');
 
 const app = express();
 const PORT = process.env.PORT || 4000;
-
-// Configurar Redis
-const redisClient = new Redis(process.env.REDIS_URL);
 
 // Conexão com o banco de dados
 mongoose.connect(process.env.DB_URI);
@@ -23,13 +18,13 @@ db.once('open', () => console.log("Conectado ao banco de dados!"));
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
-app.use(session({
-    store: new RedisStore({ client: redisClient }),
-    secret: "minha chave secreta",
-    saveUninitialized: false,
-    resave: false,
-    cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 60000 }
-}));
+app.use(
+    session({
+        secret: "minha chave secreta",
+        saveUninitialized: true,
+        resave: false,
+    })
+);
 
 app.use((req, res, next) => {
     res.locals.message = req.session.message;
