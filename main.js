@@ -38,6 +38,7 @@ app.use(express.static("public"));
 
 // Configuração do mecanismo de modelo para renderizar páginas da web com EJS
 app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, 'views'));
 
 // Prefixo de rota para as rotas do aplicativo
 app.use("", require("./routes/routes"));
