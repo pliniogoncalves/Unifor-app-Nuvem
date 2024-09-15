@@ -23,7 +23,6 @@ app.use(
         secret: "minha chave secreta",
         saveUninitialized: true,
         resave: false,
-        cookie: { secure: true, maxAge: 60000 }
     })
 );
 
