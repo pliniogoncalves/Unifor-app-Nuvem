@@ -28,7 +28,7 @@ app.use(session({
     secret: "minha chave secreta",
     saveUninitialized: false,
     resave: false,
-    cookie: { secure: true, maxAge: 60000 }
+    cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 60000 }
 }));
 
 app.use((req, res, next) => {
