@@ -23,7 +23,7 @@ app.use(
         secret: "minha chave secreta",
         saveUninitialized: true,
         resave: false,
-        cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 }
+        cookie: { secure: true, maxAge: 60000 }
     })
 );
 
