@@ -4,10 +4,14 @@ const express = require('express');
 const path = require("path");
 const mongoose = require('mongoose');
 const session = require('express-session');
+const Redis = require('ioredis');
 const RedisStore = require('connect-redis')(session);
 
 const app = express();
 const PORT = process.env.PORT || 4000;
+
+// Configurar Redis
+const redisClient = new Redis(process.env.REDIS_URL);
 
 // Conexão com o banco de dados
 mongoose.connect(process.env.DB_URI);
