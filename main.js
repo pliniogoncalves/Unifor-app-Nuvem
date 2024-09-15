@@ -21,7 +21,7 @@ app.use(express.json());
 app.use(
     session({
         secret: "minha chave secreta",
-        saveUninitialized: false,
+        saveUninitialized: true,
         resave: false,
         cookie: { secure: process.env.NODE_ENV === 'production', maxAge: 24 * 60 * 60 * 1000 }
     })
