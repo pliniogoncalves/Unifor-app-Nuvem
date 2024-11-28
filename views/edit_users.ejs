@@ -26,6 +26,10 @@
                         <input type="tel" name="telefone" class="form-control form-control-lg" placeholder="Digite o Telefone" value="<%= user.telefone %>" required>
                     </div>
                     <div class="mb-3">
+                        <label for="endereco">Endereço de Coleta</label>
+                        <input type="text" name="endereco" class="form-control form-control-lg" placeholder="Digite o Endereço" required>
+                    </div>
+                    <div class="mb-3">
                         <label for="status">Status</label>
                         <select name="status" class="form-control form-control-lg" required>
                             <option value="solicitado" <%= user.status === 'solicitado' ? 'selected' : '' %>>Solicitado</option>

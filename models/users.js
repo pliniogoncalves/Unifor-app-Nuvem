@@ -28,16 +28,20 @@ const userSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['solicitado', 'coletado'], // Valores permitidos
+        enum: ['solicitado', 'coletado'], 
         default: 'solicitado'
     },
-    dataHoraSolicitacao: {  // Campo para data de solicitação
+    dataHoraSolicitacao: {  
         type: Date,
-        default: Date.now,   // Define a data atual como padrão
+        default: Date.now,  
     },
-    dataHoraColeta: {  // Campo para data de coleta
+    dataHoraColeta: {  
         type: Date,
-        default: null,   // Inicia como null, atualizado quando coletado
+        default: null,   
+    },
+    endereco: { 
+        type: String, 
+        required: true 
     },
 });
 

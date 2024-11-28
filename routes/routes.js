@@ -161,6 +161,7 @@ router.post("/add", isAuthenticated, upload, async (req, res) => {
             password: hashedPassword,
             email: req.body.email,
             telefone: req.body.telefone,
+            endereco: rew.body.endereco,
             imagem: req.file.filename,
             status: "solicitado", // Adiciona status inicial
             dataHoraSolicitacao: dataHoraSolicitacao // Armazena a data e hora
@@ -226,6 +227,7 @@ router.post("/update/:id", isAuthenticated, upload, async (req, res) => {
             password: hashedPassword,
             email: req.body.email,
             telefone: req.body.telefone,
+            endereco: req.body.endereco,
             imagem: new_image,
             status: "Coletado",  // Atualiza status
             dataHoraColeta: new Date()  // Salva a data e hora da coleta

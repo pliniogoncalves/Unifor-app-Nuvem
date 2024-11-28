@@ -19,6 +19,7 @@
                                 <th class="text-center">Nome</th>
                                 <th class="text-center">E-mail</th>
                                 <th class="text-center">Telefone</th>
+                                <th class="text-center">Endereço de Coleta</th>
                                 <th class="text-center">Status</th>
                                 <th class="text-center">Data de Solicitação</th>
                                 <th class="text-center">Data de Coleta</th>
@@ -33,6 +34,7 @@
                                     <td class="text-center"><%= row.nome %></td>
                                     <td class="text-center"><%= row.email %></td>
                                     <td class="text-center"><%= row.telefone  %></td>
+                                    <td class="text-center"><%= row.endereco %></td>
                                     <td class="text-center"><%= row.status %></td>
                                     <td class="text-center">
                                         <%= row.dataHoraSolicitacao ? row.dataHoraSolicitacao.toLocaleString() : 'N/A' %>
