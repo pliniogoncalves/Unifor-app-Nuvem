@@ -140,9 +140,8 @@ router.post("/signup", upload, async (req, res) => {
 // Rota para adicionar um usuário ao banco de dados (admin)
 router.post("/add", isAuthenticated, upload, async (req, res) => {
     try {
-        // Verifica se o usuário já existe no banco de dados pelo nome
         const existingUser = await User.findOne({ nome: req.body.nome });
-        
+
         if (existingUser) {
             req.session.message = {
                 type: "danger",
@@ -151,23 +150,26 @@ router.post("/add", isAuthenticated, upload, async (req, res) => {
             return res.redirect("/add");
         }
 
-        // Criptografando o password
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
-        // Se o usuário não existir, cria um novo
+        // Captura data e hora atuais
+        const dataHoraSolicitacao = new Date();
+
         const user = new User({
             nome: req.body.nome,
             password: hashedPassword,
             email: req.body.email,
             telefone: req.body.telefone,
             imagem: req.file.filename,
+            status: "solicitado", // Adiciona status inicial
+            dataHoraSolicitacao: dataHoraSolicitacao // Armazena a data e hora
         });
 
         await user.save();
         req.session.message = {
             type: "success",
-            message: "Usuário adicionado com sucesso!",
+            message: "Coleta Solicitada com sucesso!",
         };
         res.redirect("/home");
     } catch (err) {
@@ -213,34 +215,26 @@ router.get("/edit/:id", isAuthenticated, async (req, res) => {
 // Rota para atualizar um usuário no banco de dados
 router.post("/update/:id", isAuthenticated, upload, async (req, res) => {
     let id = req.params.id;
-    let new_image = "";
+    let new_image = req.file ? req.file.filename : req.body.old_image;
 
-    if (req.file) {
-        new_image = req.file.filename;
-        try {
-            fs.unlinkSync("./uploads/" + req.body.old_image);
-        } catch (err) {
-            console.log(err);
-        }
-    } else {
-        new_image = req.body.old_image;
-    }
-
-    // Criptografando o password
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(req.body.password, saltRounds);
 
     try {
-        await User.findByIdAndUpdate(id, {
+        const updatedData = {
             nome: req.body.nome,
             password: hashedPassword,
             email: req.body.email,
             telefone: req.body.telefone,
             imagem: new_image,
-        });
+            status: "Coletado",  // Atualiza status
+            dataHoraColeta: new Date()  // Salva a data e hora da coleta
+        };
+
+        await User.findByIdAndUpdate(id, updatedData);
         req.session.message = {
             type: "success",
-            message: "Usuário atualizado com sucesso!",
+            message: "Status atualizado para 'Coletado'!",
         };
         res.redirect("/home");
     } catch (err) {

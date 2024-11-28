@@ -19,17 +19,27 @@
                                 <th class="text-center">Nome</th>
                                 <th class="text-center">E-mail</th>
                                 <th class="text-center">Telefone</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center">Data de Solicitação</th>
+                                <th class="text-center">Data de Coleta</th>
                                 <th class="text-center">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             <% users.forEach((row, index) => { %>
                                 <tr class="align-middle">
-                                    <td class="text-center"><%= index %></td>
+                                    <td class="text-center"><%= index + 1 %></td>
                                     <td class="text-center"><img src="<%= row.imagem %>" width="50" class="img-thumbnail"></td>
                                     <td class="text-center"><%= row.nome %></td>
                                     <td class="text-center"><%= row.email %></td>
                                     <td class="text-center"><%= row.telefone  %></td>
+                                    <td class="text-center"><%= row.status %></td>
+                                    <td class="text-center">
+                                        <%= row.dataHoraSolicitacao ? row.dataHoraSolicitacao.toLocaleString() : 'N/A' %>
+                                    </td>
+                                    <td class="text-center">
+                                        <%= row.dataHoraColeta ? row.dataHoraColeta.toLocaleString() : 'N/A' %>
+                                    </td>
                                     <td class="text-center">
                                      <a href="/edit/<%= row._id %>" class="text-success"><i class="fas fa-edit fa-lg mx-1"></i></a>
                                      
